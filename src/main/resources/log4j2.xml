@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d %-5p [%t] [%l] %m%n" />
+		</Console>
+
+		<File name="app" fileName="${sys:catalina.home}/logs/mackie/app.log"
+			append="false" immediateFlush="false">
+			<PatternLayout pattern="%d %-5p [%t] [%l] %m%n" />
+		</File>
+
+		<RollingFile name="DAILY_LOG" fileName="${sys:catalina.home}/wtpwebapps/mackie/log/daily.log"
+			filePattern="${sys:catalina.home}/wtpwebapps/mackielog/%d{ddMMyyyy}_daily.log">
+			<PatternLayout pattern="%d %-5p [%t] [%l] %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+		</RollingFile>
+		
+	</Appenders>
+	<Loggers>
+		<Logger name="com.mackie" level="info">
+			<AppenderRef ref="app" />
+		</Logger>
+		<Logger name="java.sql" level="INFO">
+			<AppenderRef ref="DAILY_LOG"/>
+		</Logger>
+		<Root level="debug">
+			<AppenderRef ref="DAILY_LOG"/>
+			<AppenderRef ref="STDOUT" />
+		</Root>
+	</Loggers>
+</Configuration>
