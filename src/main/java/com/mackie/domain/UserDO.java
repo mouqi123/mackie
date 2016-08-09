@@ -53,10 +53,4 @@ public class UserDO {
 	public void setLastLogin(LocalDateTime lastLogin) {
 		this.lastLogin = lastLogin;
 	}
-	
-	@Override
-	public String toString() {
-		return "{\"userId\":"+userId+", \"userName\":\""+userName+"\", \"password\":\""+password+
-				"\", \"phoneNumber\":\""+phoneNumber+"\", \"lastLogin\":\""+lastLogin.toString()+"\"}";
-	}
 }
