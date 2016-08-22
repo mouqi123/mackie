@@ -1,5 +1,7 @@
 package com.mackie.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -17,9 +19,9 @@ public class TestController {
 	
 	@RequestMapping(value="/login.do")
 	@ResponseBody
-	public UserDO login( UserDO user,@RequestBody String json) {
+	public UserDO login(@RequestBody UserDO user, HttpServletRequest request) {
 		log.info("this is a debug message. debug:"+ counter++);
-		log.info(json);
+
 		log.info("userName:"+user.getUserName());
 		log.info(user.getPassword());
 		UserDO user1 = new UserDO();

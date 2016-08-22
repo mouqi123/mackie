@@ -12,7 +12,7 @@ public class UserDO {
 	
 	private String phoneNumber;
 	
-	private LocalDateTime lastLogin;
+	private LocalDateTime lastLogin = LocalDateTime.now();
 
 	public int getUserId() {
 		return userId;
