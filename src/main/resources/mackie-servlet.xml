@@ -28,6 +28,7 @@
 	</mvc:annotation-driven>
 
 	<context:component-scan base-package="com.mackie.controller"></context:component-scan>
+	<context:component-scan base-package="com.mackie.dao"></context:component-scan>
 
 	<!-- freemarker的配置 -->
 	<bean id="freemarkerConfig"

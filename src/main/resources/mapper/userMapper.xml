@@ -13,11 +13,14 @@
 	<sql id="full_columns">
 		user_id,user_name,password,phone_number,last_login
 	</sql>
-	
+
 	<sql id="where">
 		<where>
 			<if test="userId!=0">
 				and user_id = #{userId}
+			</if>
+			<if test="password!=null and password!=''">
+				and password=#{passowrd}
 			</if>
 			<if test="userName!=null and userName!=''">
 				and user_name=#{userName}
@@ -31,13 +34,76 @@
 	<select id="selectUserById" parameterType="int" resultMap="userResultMap">
 		select * from t_user where user_id = #{id}
 	</select>
-	
-	<select id="selectUserByPhoneNumber" parameterType="String" resultMap="userResultMap">
+
+	<select id="selectUserByPhoneNumber" parameterType="String"
+		resultMap="userResultMap">
 		select * from t_user where phone_number=#{phoneNumber};
 	</select>
-	
+
 	<select id="selectUserOne" parameterType="UserDO" resultMap="userResultMap">
-		select * from t_user 
-		<include refid="where"/>
+		select * from t_user
+		<include refid="where" />
 	</select>
+
+	<insert id="addUser" useGeneratedKeys="true" keyProperty="user_id"
+		parameterType="UserDO">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != 0">
+				user_id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="phoneNumber != null">
+				phone_number,
+			</if>
+			<if test="lastLogin != null">
+				last_login,
+			</if>
+		</trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="userId != 0">
+				#{userId},
+			</if>
+			<if test="userName != null">
+				#{userName},
+			</if>
+			<if test="password != null">
+				#{password},
+			</if>
+			<if test="phoneNumber != null">
+				#{phoneNumber},
+			</if>
+			<if test="lastLogin != null">
+				#{lastLogin},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateUser" parameterType="UserDO">
+		update t_user
+		<set>
+			<if test="userName !=null and userName != ''">
+				user_name = #{userName},
+			</if>
+			<if test="phoneNumber != null and phoneNumber != ''">
+				phone_number = #{phoneNumber},
+			</if>
+			<if test="password != null and password != ''">
+				password = #{password},
+			</if>
+			<if test="lastLogin !=null">
+				last_login = #{lastLogin},
+			</if>
+		</set>
+		where user_id = #{userId}
+	</update>
+
+	<delete id="deleteUser" parameterType="int">
+		delete from t_user where user_id = #{id}
+	</delete>
 </mapper>
